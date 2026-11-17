@@ -1,0 +1,482 @@
+<!doctype html><html lang="bn"><head><title>Dr.Khalid Mahmud ENT Care</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1417">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: phone-style app shell. Sticky header, scrolling main, bottom tab bar. Dark-first clinical teal. */
+:root{
+  --bg:#0d1417; --surface:#152025; --surface2:#1c2a30; --line:#2a3b42;
+  --fg:#e7eff1; --muted:#8fa6ad; --accent:#3cc4b0; --on-accent:#06211c;
+  --info:#5aa9e6; --ok:#4cc38a; --warn:#e8a23a; --danger:#ef6b73; --danger-bg:#3a1d21;
+  --font:'Hind Siliguri','Noto Sans Bengali','Segoe UI',system-ui,sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#edf3f4; --surface:#ffffff; --surface2:#f1f6f7; --line:#d3e0e3;
+  --fg:#12262b; --muted:#587279; --accent:#0e8f7e; --on-accent:#ffffff;
+  --info:#1f6fb4; --ok:#1c8a56; --warn:#a96a08; --danger:#c4343e; --danger-bg:#fbe6e8; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#edf3f4; --surface:#ffffff; --surface2:#f1f6f7; --line:#d3e0e3;
+  --fg:#12262b; --muted:#587279; --accent:#0e8f7e; --on-accent:#ffffff;
+  --info:#1f6fb4; --ok:#1c8a56; --warn:#a96a08; --danger:#c4343e; --danger-bg:#fbe6e8; color-scheme:light}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:0;background:var(--bg)}body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5;
+  padding-left:max(0px,env(safe-area-inset-left,0px));padding-right:max(0px,env(safe-area-inset-right,0px))}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#app{max-width:520px;margin:0 auto;height:100%;display:flex;flex-direction:column;position:relative;background:var(--bg);overflow:hidden}
+.top{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--surface)}
+.logo{width:38px;height:38px;border-radius:10px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:12px;display:grid;place-items:center;flex:none}
+.top h1{font-size:15px;line-height:1.25;margin:0;font-weight:600;flex:1;min-width:0}
+.ib{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--muted);position:relative;flex:none}
+.ib:hover{background:var(--surface2);color:var(--fg)}
+.ib svg,.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.badge{position:absolute;top:3px;right:3px;min-width:16px;height:16px;border-radius:8px;background:var(--danger);color:#fff;font-size:10px;display:grid;place-items:center;padding:0 4px}
+main{flex:1;overflow-y:auto;padding:16px 16px 96px;min-height:0}
+h2{font-size:21px;margin:0;line-height:1.3}
+.sub{color:var(--muted);font-size:13px}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.search{display:flex;gap:10px;align-items:center;margin:14px 0 10px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:0 12px}
+.search input{flex:1;min-width:0;background:none;border:0;padding:12px 0;outline:0}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
+.chip{flex:none;padding:5px 14px;border-radius:99px;border:1px solid var(--line);color:var(--muted);font-size:13px;background:var(--surface)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.pc{display:block;width:100%;text-align:left}
+.av{width:42px;height:42px;border-radius:50%;background:var(--surface2);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none;border:1px solid var(--line)}
+.blood{font-size:12px;font-weight:700;color:var(--danger);border:1px solid var(--danger);border-radius:6px;padding:0 6px;flex:none}
+.dx{background:var(--surface2);border-radius:10px;padding:8px 10px;margin:10px 0 8px;font-size:14px}
+.dx small{display:block;color:var(--accent);font-size:12px}
+.alg{display:flex;gap:8px;align-items:center;background:var(--danger-bg);color:var(--danger);border-radius:8px;padding:5px 10px;font-size:13px;font-weight:500}
+.alg .ic{width:15px;height:15px;flex:none}
+.st{font-size:12px;font-weight:600;padding:2px 10px;border-radius:6px;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);white-space:nowrap}
+.due{font-size:12px;color:var(--muted)}
+.due.late{color:var(--warn)}
+.name{font-weight:600;font-size:16px;line-height:1.3}
+.fab{position:absolute;right:18px;bottom:calc(86px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.35);z-index:5}
+.fab svg{width:26px;height:26px;stroke-width:2.4}
+nav{display:flex;border-top:1px solid var(--line);background:var(--surface);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));flex:none}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:11px;color:var(--muted);border-radius:14px;line-height:1.2;text-align:center}
+nav button.on{color:var(--accent);font-weight:600}
+nav button.on .pill{background:color-mix(in srgb,var(--accent) 20%,transparent)}
+.pill{width:56px;height:28px;border-radius:14px;display:grid;place-items:center}
+.shield .blur{filter:blur(7px);user-select:none}
+.overlay{position:absolute;inset:0;background:var(--bg);z-index:20;display:flex;flex-direction:column}
+.tabs{display:flex;border-bottom:1px solid var(--line);background:var(--surface);flex:none;overflow-x:auto}
+.tabs button{flex:1;min-width:84px;padding:10px 4px;font-size:12px;color:var(--muted);border-bottom:2px solid transparent;text-align:center;line-height:1.3}
+.tabs button.on{color:var(--accent);border-color:var(--accent);font-weight:600}
+.sec h3{margin:0 0 10px;font-size:15px;color:var(--accent)}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.btn{padding:10px 16px;border-radius:10px;font-weight:600;background:var(--accent);color:var(--on-accent);display:inline-flex;gap:8px;align-items:center;justify-content:center}
+.btn.sec2{background:var(--surface2);color:var(--fg);border:1px solid var(--line)}
+.btn.dng{background:var(--danger-bg);color:var(--danger)}
+.btn.full{width:100%}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+label.f{display:block;margin-bottom:12px;font-size:13px;color:var(--muted)}
+.f input,.f select,.f textarea,.inp{display:block;width:100%;margin-top:4px;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--fg);outline:0}
+.f input:focus,.f select:focus,.f textarea:focus,.inp:focus{border-color:var(--accent)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.sheetbody{flex:1;overflow-y:auto;padding:16px 16px 40px;min-height:0}
+.item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border:0}
+.item .grow{flex:1;min-width:0}
+.bar{height:6px;border-radius:3px;background:var(--surface2);overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.ency{padding:0}
+.ency>button{display:flex;width:100%;align-items:center;gap:10px;padding:14px;text-align:left}
+.tag{font-size:11px;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);border-radius:6px;padding:0 7px;display:inline-block}
+.ency .body{padding:0 14px 14px;font-size:14px;display:none}
+.ency.open .body{display:block}
+.ency.open .chev{transform:rotate(180deg)}
+.chev{transition:transform .15s}
+.body b{color:var(--accent);font-weight:600;display:block;margin-top:8px}
+.body ul{margin:2px 0 0;padding-left:20px}
+.toggle{width:46px;height:26px;border-radius:13px;background:var(--line);position:relative;flex:none;transition:background .15s}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s}
+.toggle.on{background:var(--accent)}
+.toggle.on::after{transform:translateX(20px)}
+.toast{position:absolute;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 16px;border-radius:10px;font-size:13px;z-index:60;max-width:90%;text-align:center}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.photos img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block}
+.photos .ph{position:relative}
+.photos .ph button{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:14px;line-height:1}
+.pin{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;height:100%}
+.dots{display:flex;gap:14px}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--accent)}
+.dots i.on{background:var(--accent)}
+.keys{display:grid;grid-template-columns:repeat(3,72px);gap:12px}
+.keys button{height:64px;border-radius:50%;background:var(--surface);border:1px solid var(--line);font-size:22px}
+.donut{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.legend{flex:1;min-width:150px;font-size:13px;display:grid;gap:6px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+textarea.code{min-height:90px;font-family:ui-monospace,monospace;font-size:12px}
+.note{font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head><body><div id="app">
+  <header class="top">
+    <div class="logo">ENT</div>
+    <h1>Dr.Khalid Mahmud ENT Care</h1>
+    <button class="ib" id="eyeBtn" aria-label="গোপনীয়তা শিল্ড"></button>
+    <button class="ib" id="bellBtn" aria-label="নোটিফিকেশন"></button>
+  </header>
+  <main id="main"></main>
+  <button class="fab" id="fab" aria-label="নতুন রোগী যোগ করুন"></button>
+  <nav id="nav"></nav>
+  <div id="layer"></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var KEY='entcare.v1';
+var ST={planned:{l:'পরিকল্পিত',c:'var(--info)'},done:{l:'সম্পন্ন',c:'var(--ok)'},follow:{l:'ফলোআপে',c:'var(--warn)'},healed:{l:'সুস্থ',c:'var(--muted)'}};
+var IC={
+ users:'<path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="10" cy="8" r="3.5"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.6a3.5 3.5 0 0 1 0 6.8"/>',
+ book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7"/>',
+ chart:'<path d="M5 21V10M12 21V4M19 21v-7"/>',
+ shield:'<path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+ eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ eyeoff:'<path d="M3 3l18 18M10.6 5.1A9.7 9.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+ bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+ msg:'<path d="M4 5h16v11H9l-5 4z"/>',
+ edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+ trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+ back:'<path d="M15 5l-7 7 7 7"/>',
+ search:'<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/>',
+ alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.2v.1"/>',
+ chev:'<path d="M6 9l6 6 6-6"/>',
+ x:'<path d="M6 6l12 12M18 6L6 18"/>',
+ cam:'<path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13.5" r="3.5"/>',
+ lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'
+};
+function ic(n,cls){return '<svg class="'+(cls||'ic')+'" viewBox="0 0 24 24" aria-hidden="true">'+IC[n]+'</svg>'}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function bn(s){return String(s).replace(/\d/g,function(d){return '০১২৩৪৫৬৭৮৯'[d]})}
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function uid(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+
+/* ---------- dates ---------- */
+function iso(d){var z=new Date(d.getTime()-d.getTimezoneOffset()*6e4);return z.toISOString().slice(0,10)}
+function today(){return iso(new Date())}
+function off(n){var d=new Date();d.setDate(d.getDate()+n);return iso(d)}
+function daysFrom(a){var x=new Date(a+'T00:00:00'),t=new Date(today()+'T00:00:00');return Math.round((x-t)/864e5)}
+function rel(date){var n=daysFrom(date);if(n===0)return {t:'আজ',late:false};
+  return n<0?{t:'তারিখ অতিক্রান্ত ('+bn(-n)+' দিন আগে)',late:true}:{t:bn(n)+' দিন বাকি',late:false}}
+function fmt(d){return d?bn(d):'—'}
+function fmtTime(t){if(!t)return '—';var p=t.split(':'),h=+p[0],ap=h>=12?'PM':'AM';h=h%12||12;return bn((h<10?'0':'')+h+':'+p[1])+' '+ap}
+
+/* ---------- data ---------- */
+function sample(){
+ return {patients:[
+  {id:uid(),reg:'ENT-2026-001',name:'মোঃ তানভীর হাসান',age:28,sex:'পুরুষ',blood:'B+',phone:'01712000111',address:'মিরপুর-১০, ঢাকা',guardian:'মোঃ হাসান আলী (পিতা) - 01712000222',nid:'',allergy:'Sulfa Drugs',diagnosis:'Deviated Nasal Septum (DNS) with Hypertrophied Turbinate',procedure:'সেপ্টোপ্লাস্টি ও টার্বিনেক্টমি (Septoplasty)',surgeryDate:off(-36),surgeon:'Dr. Khalid Mahmud',hospital:'গ্রিন লাইফ হাসপাতাল ও ইএনটি সেন্টার',anesthesia:'GA (General Anesthesia)',status:'follow',preNote:'অপারেশনের আগে ৬ ঘণ্টা খালি পেটে থাকা। রক্ত পরীক্ষা ও সিটি স্ক্যান রিপোর্ট সংযুক্ত।',opNote:'সেপ্টাল ডিফ্লেকশন সংশোধন, নাকের ভেতর স্প্লিন্ট স্থাপন। রক্তক্ষরণ স্বাভাবিক।',
+   meds:[{n:'Cefuroxime 500 mg',d:'১+০+১ (খাওয়ার পরে)',days:7},{n:'Fexofenadine 120 mg',d:'০+০+১',days:14},{n:'Saline Nasal Spray',d:'দিনে ৩ বার',days:30}],
+   appts:[{date:off(-22),time:'10:00',type:'পোস্ট-অপারেটিভ',st:'পেন্ডিং'}],log:[{date:off(-30),note:'স্প্লিন্ট খোলা হয়েছে, নাক বন্ধ ভাব কমেছে।'}],photos:[]},
+  {id:uid(),reg:'ENT-2026-002',name:'মোছাঃ ফাতেমা খাতুন',age:34,sex:'মহিলা',blood:'O+',phone:'01811223344',address:'ধানমন্ডি ৮/এ, ঢাকা',guardian:'মোস্তফা কামাল (স্বামী) - 01911223344',nid:'19922699876543210',allergy:'Penicillin (পেনিসিলিন এলার্জি)',diagnosis:'Chronic Suppurative Otitis Media (CSOM) - Safe Type',procedure:'টিম্প্যানোপ্লাস্টি (Tympanoplasty Type 1)',surgeryDate:off(-38),surgeon:'Dr. Khalid Mahmud',hospital:'গ্রিন লাইফ হাসপাতাল ও ইএনটি সেন্টার',anesthesia:'GA (General Anesthesia)',status:'follow',preNote:'অপারেশনের পূর্বে দিন চুল পরিষ্কার রাখা। প্রি-অডিওগ্রাম রিপোর্ট সংযুক্ত।',opNote:'সাবটোটাল পারফোরেশন, রাইট টিম্পানিক মেমব্রেন। অরিকুলার চেইন ইনট্যাক্ট। টেম্পোরালিস ফাসা গ্রাফট স্থাপন সম্পন্ন।',
+   meds:[{n:'Ciprofloxacin 500 mg',d:'১+০+১',days:7},{n:'Paracetamol 500 mg',d:'প্রয়োজনে (ব্যথা হলে)',days:5}],
+   appts:[{date:off(-21),time:'11:00',type:'পোস্ট-অপারেটিভ',st:'পেন্ডিং'}],log:[],photos:[]},
+  {id:uid(),reg:'ENT-2026-003',name:'আয়েশা সিদ্দিকা',age:9,sex:'মহিলা',blood:'A+',phone:'01911555666',address:'উত্তরা, সেক্টর ৭, ঢাকা',guardian:'রফিকুল সিদ্দিকী (পিতা) - 01911555777',nid:'',allergy:'',diagnosis:'Chronic Tonsillitis with Adenoid Hypertrophy',procedure:'টনসিলেক্টমি ও এডিনয়েডেক্টমি',surgeryDate:off(9),surgeon:'Dr. Khalid Mahmud',hospital:'গ্রিন লাইফ হাসপাতাল ও ইএনটি সেন্টার',anesthesia:'GA (General Anesthesia)',status:'planned',preNote:'ভর্তির আগে ৬ ঘণ্টা খালি পেট। সিবিসি ও ক্লটিং টাইম রিপোর্ট আনতে হবে।',opNote:'',
+   meds:[],appts:[{date:off(8),time:'16:00',type:'প্রি-অপারেটিভ',st:'পেন্ডিং'}],log:[],photos:[]},
+  {id:uid(),reg:'ENT-2026-004',name:'ড. শফিকুর রহমান',age:52,sex:'পুরুষ',blood:'AB+',phone:'01611888999',address:'সিলেট সদর',guardian:'',nid:'',allergy:'Dust, NSAIDs',diagnosis:'Chronic Rhinosinusitis with Bilateral Nasal Polyposis',procedure:'FESS (Functional Endoscopic Sinus Surgery)',surgeryDate:off(-90),surgeon:'Dr. Khalid Mahmud',hospital:'গ্রিন লাইফ হাসপাতাল ও ইএনটি সেন্টার',anesthesia:'GA (General Anesthesia)',status:'healed',preNote:'',opNote:'দুই পাশের পলিপ অপসারণ, ম্যাক্সিলারি অ্যান্ট্রোস্টমি।',
+   meds:[{n:'Mometasone Nasal Spray',d:'প্রতি নাকে ২ পাফ, সকালে',days:60}],appts:[{date:off(-60),time:'10:30',type:'পোস্ট-অপারেটিভ',st:'সম্পন্ন'}],log:[],photos:[]}
+ ],settings:{shield:false,pin:null,surgeon:'Dr. Khalid Mahmud',degree:''}}}
+var db;
+function load(){try{var r=localStorage.getItem(KEY);if(r){db=JSON.parse(r);if(db&&db.patients)return}}catch(e){}db=sample()}
+var warned=false;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){if(!warned){warned=true;toast('ব্রাউজারে ডাটা সংরক্ষণ করা যাচ্ছে না। ব্যাকআপ নিন।')}}}
+load();
+
+var S={tab:'list',q:'',f:'all',detail:null,dtab:0,unlocked:false,openEnc:{}};
+function P(id){return db.patients.filter(function(p){return p.id===id})[0]}
+
+/* ---------- ui helpers ---------- */
+var toastT;
+function toast(m){var o=$('.toast');if(o)o.remove();var t=document.createElement('div');t.className='toast';t.textContent=m;$('#app').appendChild(t);clearTimeout(toastT);toastT=setTimeout(function(){t.remove()},2600)}
+function initials(n){var s=n.replace(/^(মোঃ|মোছাঃ|ড\.|Dr\.|Md\.)\s*/,'').trim();return esc(s.slice(0,2))}
+function nextAppt(p){var a=(p.appts||[]).filter(function(x){return x.st!=='সম্পন্ন'}).sort(function(a,b){return a.date<b.date?-1:1});return a[0]||null}
+function dueFor(p){var a=nextAppt(p);if(a)return a.date;return p.status==='planned'?p.surgeryDate:null}
+function alerts(){var out=[];db.patients.forEach(function(p){var a=nextAppt(p);if(a){var n=daysFrom(a.date);if(n<=3)out.push({p:p,a:a,n:n})}});return out.sort(function(a,b){return a.n-b.n})}
+
+/* ---------- header / nav ---------- */
+function renderChrome(){
+  $('#eyeBtn').innerHTML=ic(db.settings.shield?'eyeoff':'eye');
+  $('#eyeBtn').style.color=db.settings.shield?'var(--accent)':'';
+  var n=alerts().length;
+  $('#bellBtn').innerHTML=ic('bell')+(n?'<span class="badge">'+bn(n)+'</span>':'');
+  $('#fab').innerHTML=ic('plus');
+  $('#fab').hidden=S.tab!=='list';
+  var tabs=[['list','users','রোগী তালিকা'],['enc','book','এনসাইক্লোপিডিয়া'],['stats','chart','পরিসংখ্যান'],['set','shield','সেটিংস']];
+  $('#nav').innerHTML=tabs.map(function(t){return '<button data-tab="'+t[0]+'" class="'+(S.tab===t[0]?'on':'')+'"><span class="pill">'+ic(t[1])+'</span>'+t[2]+'</button>'}).join('');
+  $('#app').classList.toggle('shield',!!db.settings.shield);
+}
+
+/* ---------- patient list ---------- */
+function renderMain(){
+  var m=$('#main');
+  if(S.tab==='list'){
+    m.innerHTML='<h2>রোগী ও সার্জারি রেজিস্টার</h2><div class="sub">মোট রোগী: '+bn(db.patients.length)+' জন</div>'+
+      '<div class="search">'+ic('search')+'<input id="q" type="search" placeholder="রোগীর নাম, মোবাইল, রেজিঃ নং বা রোগ খুঁজুন..." value="'+esc(S.q)+'"></div>'+
+      '<div class="chips">'+[['all','সব']].concat(Object.keys(ST).map(function(k){return [k,ST[k].l]})).map(function(c){return '<button class="chip '+(S.f===c[0]?'on':'')+'" data-f="'+c[0]+'">'+c[1]+'</button>'}).join('')+'</div><div id="plist"></div>';
+    renderList();
+  } else if(S.tab==='enc') renderEnc(m);
+  else if(S.tab==='stats') renderStats(m);
+  else renderSettings(m);
+}
+function renderList(){
+  var q=S.q.trim().toLowerCase();
+  var list=db.patients.filter(function(p){
+    if(S.f!=='all'&&p.status!==S.f)return false;
+    if(!q)return true;
+    return [p.name,p.phone,p.reg,p.diagnosis,p.procedure].join(' ').toLowerCase().indexOf(q)>-1;
+  }).sort(function(a,b){return a.reg<b.reg?1:-1});
+  $('#plist').innerHTML=list.length?list.map(function(p){
+    var d=dueFor(p),r=d?rel(d):null;
+    return '<article class="card"><button class="pc" data-open="'+p.id+'">'+
+      '<div class="row"><div class="av">'+initials(p.name)+'</div><div style="flex:1;min-width:0"><div class="name blur">'+esc(p.name)+'</div><div class="sub">'+esc(p.reg)+' • '+bn(p.age)+' বছর • '+esc(p.sex)+'</div></div>'+(p.blood?'<span class="blood">'+esc(p.blood)+'</span>':'')+'</div>'+
+      '<div class="dx">'+esc(p.diagnosis)+'<small>সার্জারি: '+esc(p.procedure)+'</small></div>'+
+      (p.allergy?'<div class="alg">'+ic('alert')+'অ্যালার্জি: '+esc(p.allergy)+'</div>':'')+
+      '<div class="row between" style="margin-top:10px"><span class="st" style="--c:'+ST[p.status].c+'">'+ST[p.status].l+'</span>'+(r?'<span class="due '+(r.late?'late':'')+'">'+r.t+'</span>':'')+'</div></button>'+
+      '<div class="row" style="justify-content:flex-end;margin-top:6px"><a class="ib" href="tel:'+esc(p.phone)+'" aria-label="কল" style="color:var(--ok)">'+ic('phone')+'</a><a class="ib" href="sms:'+esc(p.phone)+'" aria-label="মেসেজ" style="color:var(--info)">'+ic('msg')+'</a></div></article>';
+  }).join(''):'<div class="empty">কোনো রোগী পাওয়া যায়নি।</div>';
+}
+
+/* ---------- detail ---------- */
+function renderDetail(){
+  var L=$('#layer'),p=S.detail&&P(S.detail);
+  if(!p){var o=$('#detail');if(o)o.remove();return}
+  var o=$('#detail');if(!o){o=document.createElement('div');o.id='detail';o.className='overlay';L.appendChild(o)}
+  var tabs=['ক্লিনিক্যাল তথ্য','মিডিয়া ও রিকভারি','ওষুধ তালিকা','অ্যাপয়েন্টমেন্ট'];
+  var body='';
+  if(S.dtab===0){
+    body='<div class="btns"><a class="btn" style="background:var(--ok);color:#fff;text-decoration:none" href="tel:'+esc(p.phone)+'">'+ic('phone')+'কল করুন</a><a class="btn sec2" style="text-decoration:none" href="sms:'+esc(p.phone)+'">'+ic('msg')+'মেসেজ</a></div>'+
+    '<section class="card sec"><h3>রোগীর তথ্য</h3><dl class="kv">'+
+      kv('রেজিস্ট্রেশন নং',p.reg)+kv('বয়স ও লিঙ্গ',bn(p.age)+' বছর / '+p.sex)+kv('রক্তের গ্রুপ',p.blood||'—')+kv('মোবাইল',bn(p.phone||'—'))+kv('ঠিকানা',p.address||'—')+kv('এনআইডি / জন্মনিবন্ধন',p.nid?bn(p.nid):'—')+kv('জরুরি অভিভাবক',bn(p.guardian||'—'))+'</dl></section>'+
+    '<section class="card sec"><h3>সার্জারি ও অস্ত্রোপচার বিবরণী</h3><dl class="kv">'+
+      kv('রোগ নির্ণয় (Diagnosis)',p.diagnosis)+kv('অপারেশন নাম',p.procedure)+kv('অপারেশন তারিখ',fmt(p.surgeryDate))+kv('সার্জন',p.surgeon||'—')+kv('হাসপাতাল / ওটি',p.hospital||'—')+kv('অ্যানেস্থেসিয়া',p.anesthesia||'—')+
+      '<dt>সার্জারি স্ট্যাটাস</dt><dd><span class="st" style="--c:'+ST[p.status].c+'">'+ST[p.status].l+'</span></dd>'+
+      (p.allergy?'<dt>অ্যালার্জি</dt><dd style="color:var(--danger)">'+esc(p.allergy)+'</dd>':'')+'</dl></section>'+
+    '<section class="card sec"><h3>প্রি-অপারেটিভ প্রস্তুতি ও নির্দেশনা</h3><div class="blur">'+esc(p.preNote||'কোনো নোট নেই।')+'</div></section>'+
+    '<section class="card sec"><h3>সার্জিক্যাল নোট ও ফাইন্ডিংস</h3><div class="blur">'+esc(p.opNote||'কোনো নোট নেই।')+'</div></section>';
+  } else if(S.dtab===1){
+    var days=p.surgeryDate?-daysFrom(p.surgeryDate):null;
+    body='<section class="card sec"><h3>রিকভারি অগ্রগতি</h3>'+(days!==null&&days>=0?'<div class="sub">অপারেশনের পর <b style="color:var(--fg)">'+bn(days)+'</b> দিন</div><div class="bar"><i style="width:'+Math.min(100,Math.round(days/42*100))+'%"></i></div><div class="note" style="margin-top:4px">৬ সপ্তাহের স্বাভাবিক রিকভারি সময়ের ভিত্তিতে</div>':'<div class="sub">অপারেশন এখনো হয়নি।</div>')+'</section>'+
+    '<section class="card sec"><h3>রিকভারি লগ</h3>'+
+      (p.log.length?p.log.slice().reverse().map(function(l,i){var idx=p.log.length-1-i;return '<div class="item"><div class="grow"><div class="sub">'+fmt(l.date)+'</div>'+esc(l.note)+'</div><button class="ib" data-dellog="'+idx+'" aria-label="মুছুন">'+ic('x')+'</button></div>'}).join(''):'<div class="sub">কোনো এন্ট্রি নেই।</div>')+
+      '<div style="margin-top:10px"><textarea class="inp" id="lognote" rows="2" placeholder="আজকের অবস্থা লিখুন (ব্যথা, রক্তক্ষরণ, শ্রবণ...)"></textarea><button class="btn sec2 full" style="margin-top:8px" data-addlog>লগ যোগ করুন</button></div></section>'+
+    '<section class="card sec"><h3>ছবি (অপারেশনের আগে/পরে)</h3>'+
+      (p.photos.length?'<div class="photos">'+p.photos.map(function(s,i){return '<div class="ph"><img class="blur" src="'+s+'" alt="রোগীর ছবি '+bn(i+1)+'"><button data-delph="'+i+'" aria-label="ছবি মুছুন">×</button></div>'}).join('')+'</div>':'<div class="sub">কোনো ছবি নেই।</div>')+
+      '<label class="btn sec2 full" style="margin-top:10px">'+ic('cam')+'ছবি যোগ করুন<input type="file" id="photo" accept="image/*" hidden></label>'+
+      '<div class="note" style="margin-top:6px">ছবি এই ডিভাইসের ব্রাউজারে ছোট আকারে সংরক্ষিত হয়। গোপনীয়তা শিল্ড চালু থাকলে ঝাপসা দেখায়।</div></section>';
+  } else if(S.dtab===2){
+    body='<section class="card sec"><h3>ওষুধ তালিকা</h3>'+
+      (p.meds.length?p.meds.map(function(m,i){return '<div class="item"><div class="grow"><b>'+esc(m.n)+'</b><div class="sub">'+esc(m.d)+' • '+bn(m.days)+' দিন</div></div><button class="ib" data-delmed="'+i+'" aria-label="মুছুন">'+ic('trash')+'</button></div>'}).join(''):'<div class="sub">কোনো ওষুধ যোগ করা হয়নি।</div>')+'</section>'+
+    '<section class="card sec"><h3>নতুন ওষুধ</h3><label class="f">ওষুধের নাম ও পাওয়ার<input id="mn" placeholder="যেমন: Cefuroxime 500 mg"></label><div class="g2"><label class="f">মাত্রা<input id="md" placeholder="১+০+১"></label><label class="f">কত দিন<input id="mdays" type="number" min="1" value="7"></label></div><button class="btn full" data-addmed>যোগ করুন</button></section>';
+  } else {
+    var ap=p.appts.slice().sort(function(a,b){return a.date<b.date?-1:1});
+    body=ap.map(function(a){var ix=p.appts.indexOf(a),r=rel(a.date),dn=a.st==='সম্পন্ন';
+      return '<section class="card sec"><div class="row between"><h3 style="margin:0">'+esc(a.type)+' ফলোআপ</h3><span class="due '+(r.late&&!dn?'late':'')+'">'+(dn?'সম্পন্ন':r.t)+'</span></div><dl class="kv" style="margin-top:8px">'+kv('তারিখ',fmt(a.date))+kv('সময়',fmtTime(a.time))+kv('স্ট্যাটাস',a.st)+'</dl><div class="btns" style="margin:10px 0 0">'+(dn?'':'<button class="btn sec2" data-doneap="'+ix+'">সম্পন্ন করুন</button>')+'<button class="btn dng" data-delap="'+ix+'">মুছুন</button></div></section>'}).join('')||'<div class="empty">কোনো অ্যাপয়েন্টমেন্ট নেই।</div>';
+    body+='<section class="card sec"><h3>নতুন অ্যাপয়েন্টমেন্ট</h3><div class="g2"><label class="f">তারিখ<input id="ad" type="date" value="'+off(7)+'"></label><label class="f">সময়<input id="at" type="time" value="10:00"></label></div><label class="f">ধরন<select id="aty"><option>পোস্ট-অপারেটিভ</option><option>প্রি-অপারেটিভ</option><option>রুটিন চেক-আপ</option><option>অডিওগ্রাম / পরীক্ষা</option></select></label><button class="btn full" data-addap>যোগ করুন</button></section>';
+  }
+  o.innerHTML='<div class="top"><button class="ib" data-close aria-label="ফিরে যান">'+ic('back')+'</button><h1 class="blur">'+esc(p.name)+'</h1><button class="ib" data-edit="'+p.id+'" aria-label="সম্পাদনা">'+ic('edit')+'</button><button class="ib" id="delbtn" data-del="'+p.id+'" aria-label="রোগী মুছুন" style="color:var(--danger)">'+ic('trash')+'</button></div>'+
+    '<div class="tabs">'+tabs.map(function(t,i){return '<button data-dtab="'+i+'" class="'+(S.dtab===i?'on':'')+'">'+t+'</button>'}).join('')+'</div><div class="sheetbody" id="dbody">'+body+'</div>';
+}
+function kv(k,v){return '<dt>'+k+'</dt><dd class="'+(k==='মোবাইল'||k==='জরুরি অভিভাবক'||k==='ঠিকানা'?'blur':'')+'">'+esc(v)+'</dd>'}
+
+/* ---------- form ---------- */
+var FIELDS=[['name','রোগীর নাম *','text',1],['age','বয়স *','number',1],['sex','লিঙ্গ','sel',0,['পুরুষ','মহিলা','অন্যান্য']],['blood','রক্তের গ্রুপ','sel',0,['','A+','A-','B+','B-','AB+','AB-','O+','O-']],['phone','মোবাইল নম্বর','tel',0],['address','ঠিকানা','text',0],['guardian','জরুরি অভিভাবক (নাম - নম্বর)','text',0],['nid','এনআইডি / জন্মনিবন্ধন','text',0],['allergy','অ্যালার্জি','text',0],['diagnosis','রোগ নির্ণয় (Diagnosis) *','text',1],['procedure','অপারেশনের নাম *','text',1],['surgeryDate','অপারেশন তারিখ','date',0],['surgeon','সার্জন','text',0],['hospital','হাসপাতাল / ওটি','text',0],['anesthesia','অ্যানেস্থেসিয়া','sel',0,['GA (General Anesthesia)','LA (Local Anesthesia)','LA + Sedation']],['status','স্ট্যাটাস','sel',0,'status'],['preNote','প্রি-অপারেটিভ নির্দেশনা','area',0],['opNote','সার্জিক্যাল নোট','area',0]];
+function openForm(id){
+  var p=id?P(id):{status:'planned',sex:'পুরুষ',anesthesia:'GA (General Anesthesia)',surgeryDate:off(7),surgeon:((db.settings.surgeon||'')+(db.settings.degree?', '+db.settings.degree:'')).trim()};
+  var h=FIELDS.map(function(f){
+    var v=p[f[0]]!=null?p[f[0]]:'',lab=f[1],t=f[2],inner;
+    if(t==='sel'){var opts=f[4]==='status'?Object.keys(ST).map(function(k){return [k,ST[k].l]}):f[4].map(function(x){return [x,x||'নির্বাচন করুন']});
+      inner='<select name="'+f[0]+'">'+opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(o[0]===v?' selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select>'}
+    else if(t==='area')inner='<textarea name="'+f[0]+'" rows="3">'+esc(v)+'</textarea>';
+    else inner='<input name="'+f[0]+'" type="'+t+'" value="'+esc(v)+'"'+(f[3]?' required':'')+(t==='number'?' min="0" max="120"':'')+'>';
+    return '<label class="f">'+lab+inner+'</label>'}).join('');
+  var o=document.createElement('div');o.id='formSheet';o.className='overlay';o.style.zIndex=30;
+  o.innerHTML='<div class="top"><button class="ib" data-closeform aria-label="বাতিল">'+ic('x')+'</button><h1>'+(id?'রোগীর তথ্য সম্পাদনা':'নতুন রোগী নিবন্ধন')+'</h1></div><form class="sheetbody" id="pform" data-id="'+(id||'')+'">'+h+'<button class="btn full" type="submit">সংরক্ষণ করুন</button></form>';
+  $('#layer').appendChild(o);
+}
+function nextReg(){var y=new Date().getFullYear(),mx=0;db.patients.forEach(function(p){var m=/ENT-(\d{4})-(\d+)/.exec(p.reg);if(m&&+m[1]===y)mx=Math.max(mx,+m[2])});return 'ENT-'+y+'-'+('000'+(mx+1)).slice(-3)}
+
+/* ---------- encyclopedia ---------- */
+var ENC=[
+ ['কান','Otomycosis','ওটোমাইকোসিস (কানের ফাঙ্গাল ইনফেকশন)','কান চুলকানো, ভরাট ভাব, পানি বা ঘন স্রাব।',['কান শুকনো রাখা','ডাক্তারের পরামর্শে অ্যান্টিফাঙ্গাল ড্রপ','কানে খোঁচা না দেওয়া'],'গোসলের সময় কানে পানি ঢোকা এড়ান।'],
+ ['কান','Chronic Suppurative Otitis Media (CSOM)','ক্রনিক অটাইটিস মিডিয়া (কান পাকা রোগ)','কান থেকে বারবার পুঁজ পড়া, শ্রবণশক্তি কমে যাওয়া।',['কান পরিষ্কার ও শুকনো রাখা','ড্রপ ও অ্যান্টিবায়োটিক চিকিৎসা','কানের পর্দা ছিদ্র হলে টিম্প্যানোপ্লাস্টি'],'অপারেশনের পর ৪–৬ সপ্তাহ কানে পানি ও জোরে নাক ঝাড়া এড়ান। ড্রেসিং ও ফলোআপ নিয়মিত করুন।'],
+ ['কান','Tympanoplasty','টিম্প্যানোপ্লাস্টি (কানের পর্দা মেরামত)','কানের পর্দায় ছিদ্র, বারবার সংক্রমণ।',['টেম্পোরালিস ফাসা বা কার্টিলেজ গ্রাফট দিয়ে পর্দা মেরামত','সাধারণত জেনারেল অ্যানেস্থেসিয়ায়'],'কানে প্যাকিং ১–২ সপ্তাহ থাকে। সর্দি-কাশি হলে নাক চেপে ঝাড়বেন না।'],
+ ['নাক','Deviated Nasal Septum (DNS)','নাকের বাঁকা হাড় বা সেপ্টাল ডেভিয়েশন','নাক বন্ধ ভাব, একদিকে শ্বাসকষ্ট, বারবার সাইনাস, নাক দিয়ে রক্ত।',['লক্ষণ হালকা হলে নাকের স্প্রে ও ওষুধ','সমস্যা বেশি হলে সেপ্টোপ্লাস্টি'],'অপারেশনের পর মাথা উঁচু করে ঘুমান, নাকে আঘাত এড়ান, স্প্লিন্ট খোলার দিন ফলোআপে আসুন।'],
+ ['নাক','Chronic Rhinosinusitis with Polyps','ক্রনিক সাইনোসাইটিস ও নাকের পলিপ','দীর্ঘদিন নাক বন্ধ, গন্ধ কম পাওয়া, মুখমণ্ডলে ভার ভাব।',['স্টেরয়েড নাকের স্প্রে ও স্যালাইন ওয়াশ','ওষুধে না কমলে FESS'],'FESS-এর পর নিয়মিত স্যালাইন ওয়াশ এবং এন্ডোস্কোপিক ক্লিনিং জরুরি।'],
+ ['নাক','Allergic Rhinitis','অ্যালার্জিক রাইনাইটিস','হাঁচি, নাক দিয়ে পানি পড়া, নাক চুলকানো।',['অ্যালার্জেন (ধুলা, ধোঁয়া) এড়িয়ে চলা','অ্যান্টিহিস্টামিন ও নাকের স্প্রে'],'ঘর ও বিছানা নিয়মিত পরিষ্কার রাখুন।'],
+ ['গলা','Chronic Tonsillitis','ক্রনিক টনসিলাইটিস','বারবার গলাব্যথা ও জ্বর, গিলতে কষ্ট।',['বছরে বারবার হলে টনসিলেক্টমি বিবেচনা','এডিনয়েড বড় হলে একসাথে অপসারণ'],'অপারেশনের পর কয়েক দিন ঠান্ডা ও নরম খাবার খান। শক্ত ও ঝাল খাবার এড়ান।'],
+ ['গলা','Laryngopharyngeal Reflux (LPR)','এলপিআর (গলায় অ্যাসিড রিফ্লাক্স)','গলায় কিছু আটকে থাকার অনুভূতি, কর্কশ স্বর, বারবার গলা পরিষ্কার করা।',['খাদ্যাভ্যাস ও জীবনযাপন পরিবর্তন','অ্যান্টাসিড বা পিপিআই ওষুধ'],'রাতের খাবার ঘুমানোর অন্তত ৩ ঘণ্টা আগে খান।'],
+ ['গলা','Thyroid & Neck Swelling','গলার ফোলা (থাইরয়েড ও নেক মাস)','গলায় চাকা বা ফোলা, গিলতে অসুবিধা।',['আল্ট্রাসনোগ্রাফি ও FNAC পরীক্ষা','ফলাফল অনুযায়ী ওষুধ বা অপারেশন'],'গলার ফোলা দ্রুত বাড়লে দেরি না করে বিশেষজ্ঞ দেখান।']];
+var catKey={all:'সকল',কান:'কান (Ear)',নাক:'নাক (Nose)',গলা:'গলা ও থাইরয়েড'};
+var encQ='',encC='all';
+function renderEnc(m){
+  m.innerHTML='<h2>নাক-কান-গলা রোগ ও সার্জারি এনসাইক্লোপিডিয়া</h2><div class="sub">আধুনিক সার্জিক্যাল প্রসিডিউর, ইনভেস্টিগেশন ও পোস্ট-অপ যত্ন নির্দেশিকা</div>'+
+   '<div class="search">'+ic('search')+'<input id="eq" type="search" placeholder="রোগ, সার্জারি বা লক্ষণ লিখে খুঁজুন..." value="'+esc(encQ)+'"></div>'+
+   '<div class="chips">'+Object.keys(catKey).map(function(k){return '<button class="chip '+(encC===k?'on':'')+'" data-ec="'+k+'">'+catKey[k]+'</button>'}).join('')+'</div><div id="elist"></div>'+
+   '<p class="note">এটি সাধারণ তথ্যের জন্য। চিকিৎসা সিদ্ধান্ত নিতে সার্জন বা নিবন্ধিত চিকিৎসকের পরামর্শ নিন।</p>';
+  renderEncList();
+}
+function renderEncList(){
+  var q=encQ.trim().toLowerCase();
+  var l=ENC.filter(function(e,i){return (encC==='all'||e[0]===encC)&&(!q||e.join(' ').toLowerCase().indexOf(q)>-1)});
+  $('#elist').innerHTML=l.length?l.map(function(e){var i=ENC.indexOf(e);return '<div class="card ency '+(S.openEnc[i]?'open':'')+'"><button data-enc="'+i+'"><div style="flex:1;min-width:0"><span class="tag">'+catKey[e[0]]+'</span><div class="name">'+esc(e[1])+'</div><div class="sub">'+esc(e[2])+'</div></div><span class="chev">'+ic('chev')+'</span></button><div class="body"><b>লক্ষণ</b>'+esc(e[3])+'<b>চিকিৎসা</b><ul>'+e[4].map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul><b>পোস্ট-অপ ও যত্ন</b>'+esc(e[5])+'</div></div>'}).join(''):'<div class="empty">কিছু পাওয়া যায়নি।</div>';
+}
+
+/* ---------- stats ---------- */
+function renderStats(m){
+  var ps=db.patients,tot=ps.length;
+  var cnt={};Object.keys(ST).forEach(function(k){cnt[k]=0});ps.forEach(function(p){cnt[p.status]++});
+  var healed=tot?Math.round(cnt.healed/tot*100):0;
+  var cols={planned:'var(--info)',done:'var(--ok)',follow:'var(--warn)',healed:'var(--muted)'};
+  var R=42,C=2*Math.PI*R,acc=0,arcs='';
+  Object.keys(ST).forEach(function(k){if(!cnt[k])return;var len=cnt[k]/tot*C;arcs+='<circle r="'+R+'" cx="60" cy="60" fill="none" stroke="'+cols[k]+'" stroke-width="14" stroke-dasharray="'+len+' '+(C-len)+'" stroke-dashoffset="'+(-acc)+'" transform="rotate(-90 60 60)"/>';acc+=len});
+  function dept(p){var s=(p.diagnosis+' '+p.procedure).toLowerCase();if(/otitis|tympano|mastoid|ear|otomyc|কান/.test(s))return 0;if(/nasal|septo|sinus|fess|rhin|turbin|নাক/.test(s))return 1;return 2}
+  var dn=['কান (Otology)','নাক (Rhinology)','গলা ও হেড-নেক (Throat & Head-Neck)'],dc=[0,0,0];ps.forEach(function(p){dc[dept(p)]++});
+  var ages=[['শিশু-কিশোর (০–১৮)',0,18],['তরুণ (১৯–৩৫)',19,35],['মধ্যবয়স্ক (৩৬–৫৫)',36,55],['প্রবীণ (৫৬+)',56,200]];
+  function bars(items){var mx=Math.max.apply(null,items.map(function(i){return i[1]}).concat([1]));return items.map(function(i){return '<div style="margin-bottom:12px"><div class="row between"><span>'+i[0]+'</span><span class="sub">'+bn(i[1])+' টি</span></div><div class="bar"><i style="width:'+(i[1]/mx*100)+'%"></i></div></div>'}).join('')}
+  m.innerHTML='<h2>পরিসংখ্যান</h2><div class="sub" style="margin-bottom:14px">রেজিস্টারের সারসংক্ষেপ</div>'+
+   '<section class="card sec"><h3>আরোগ্য ও সার্জারি স্ট্যাটাস</h3><div class="donut"><svg width="130" height="130" viewBox="0 0 120 120" role="img" aria-label="স্ট্যাটাস ডোনাট"><circle r="'+R+'" cx="60" cy="60" fill="none" stroke="var(--surface2)" stroke-width="14"/>'+arcs+'<text x="60" y="62" text-anchor="middle" font-size="20" font-weight="700" fill="var(--accent)" font-family="inherit">'+bn(healed)+'%</text><text x="60" y="78" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="inherit">আরোগ্য</text></svg><div class="legend">'+Object.keys(ST).map(function(k){return '<div><i style="background:'+cols[k]+'"></i>'+ST[k].l+' ('+bn(cnt[k])+')</div>'}).join('')+'</div></div></section>'+
+   '<section class="card sec"><h3>বিভাগওয়ারী সার্জারি ভলিউম</h3>'+bars(dn.map(function(n,i){return [n,dc[i]]}))+'</section>'+
+   '<section class="card sec"><h3>বয়সভিত্তিক রোগী বণ্টন</h3>'+bars(ages.map(function(a){return [a[0],ps.filter(function(p){return p.age>=a[1]&&p.age<=a[2]}).length]}))+'</section>';
+}
+
+/* ---------- settings / crypto ---------- */
+function toggle(id,on){return '<button class="toggle '+(on?'on':'')+'" data-tg="'+id+'" role="switch" aria-checked="'+on+'" aria-label="'+id+'"></button>'}
+function renderSettings(m){
+  var s=db.settings;
+  m.innerHTML='<h2>নিরাপত্তা, ব্যাকআপ ও সেটিংস</h2><div class="sub" style="margin-bottom:14px">তথ্য সুরক্ষা, ৪-ডিজিট পিন লক এবং এনক্রিপ্টেড ব্যাকআপ</div>'+
+  '<section class="card sec"><h3>১. ডাটা নিরাপত্তা ও অ্যাপ লক</h3>'+
+   '<div class="item"><div class="grow"><b>প্রাইভেসি শিল্ড মোড (Privacy Shield)</b><div class="sub">রোগীর নাম, ফোন ও ছবি ঝাপসা (Blur) রাখে</div></div>'+toggle('shield',s.shield)+'</div>'+
+   '<div class="item"><div class="grow"><b>৪-ডিজিট পাসকোড লক</b><div class="sub">অ্যাপ খোলার সময় পিন চাইবে</div></div>'+toggle('pin',!!s.pin)+'</div></section>'+
+  '<section class="card sec"><h3>২. সার্জন ও প্রেসক্রিপশন তথ্য</h3><label class="f">ডাক্তারের পুরো নাম<input id="sn" value="'+esc(s.surgeon)+'" placeholder="Dr. Khalid Mahmud"></label><label class="f">ডিগ্রি ও পদবি<input id="sd" value="'+esc(s.degree)+'" placeholder="MBBS, FCPS (ENT)"></label><div class="note">নতুন রোগী নিবন্ধনের সময় সার্জন ঘরে স্বয়ংক্রিয়ভাবে বসবে।</div><button class="btn sec2 full" style="margin-top:10px" data-savesurgeon>সংরক্ষণ করুন</button></section>'+
+  '<section class="card sec"><h3>৩. AES-256 এনক্রিপ্টেড ব্যাকআপ ও রিস্টোর</h3><div class="sub" style="margin-bottom:10px">সব রোগীর তথ্য পাসওয়ার্ড দিয়ে এনক্রিপ্ট করে কোড হিসেবে কপি করুন।</div>'+
+   '<label class="f">মাস্টার পাসওয়ার্ড নির্ধারণ করুন *<input id="bp" type="password" autocomplete="new-password"></label><button class="btn full" data-backup>'+ic('lock')+'এনক্রিপ্টেড ব্যাকআপ তৈরি করুন</button>'+
+   '<textarea class="inp code" id="bout" readonly hidden></textarea><button class="btn sec2 full" id="bcopy" style="margin-top:8px" data-copy hidden>কোড কপি করুন</button>'+
+   '<hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><div class="sub" style="margin-bottom:6px">নতুন ডিভাইসে রিস্টোর করুন:</div>'+
+   '<label class="f">এনক্রিপ্টেড কোড পেস্ট করুন<textarea class="code" id="rin" rows="3"></textarea></label><label class="f">মাস্টার পাসওয়ার্ড দিন<input id="rp" type="password" autocomplete="off"></label><button class="btn sec2 full" data-restore>ডিভাইসে রিস্টোর করুন</button></section>'+
+  '<section class="card sec"><h3>৪. ডেটা</h3><button class="btn dng full" data-reset>নমুনা ডেটায় রিসেট করুন</button><div class="note" style="margin-top:8px">রোগীর সব তথ্য শুধু এই ব্রাউজারে থাকে। ব্রাউজার ডেটা মুছলে হারিয়ে যায়, তাই নিয়মিত ব্যাকআপ নিন। এখানকার রোগীরা নমুনা (কাল্পনিক) তথ্য।</div></section>';
+}
+var enc=new TextEncoder(),dec=new TextDecoder();
+function b64(buf){var s='',a=new Uint8Array(buf);for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s)}
+function unb64(s){var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a}
+function deriveKey(pw,salt){return crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']).then(function(k){return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:150000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])})}
+function encryptData(pw,text){var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+  return deriveKey(pw,salt).then(function(k){return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},k,enc.encode(text))}).then(function(ct){var out=new Uint8Array(28+ct.byteLength);out.set(salt,0);out.set(iv,16);out.set(new Uint8Array(ct),28);return 'ENTC1.'+b64(out)})}
+function decryptData(pw,code){var a=unb64(code.trim().replace(/^ENTC1\./,'')),salt=a.slice(0,16),iv=a.slice(16,28),ct=a.slice(28);
+  return deriveKey(pw,salt).then(function(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:iv},k,ct)}).then(function(b){return dec.decode(b)})}
+function sha(t){return crypto.subtle.digest('SHA-256',enc.encode('entcare:'+t)).then(b64)}
+
+/* ---------- pin lock ---------- */
+function showPin(mode,done){
+  var o=document.createElement('div');o.className='overlay';o.style.zIndex=90;var v='';
+  var title=mode==='set'?'নতুন ৪-ডিজিট পিন দিন':mode==='confirm'?'আবার পিন দিন':'পিন দিয়ে আনলক করুন';
+  o.innerHTML='<div class="pin"><div class="logo" style="width:56px;height:56px;font-size:16px">ENT</div><div id="pt" style="font-weight:600">'+title+'</div><div class="dots" id="pd"><i></i><i></i><i></i><i></i></div><div class="keys" id="pk">'+[1,2,3,4,5,6,7,8,9,'×',0,'⌫'].map(function(k){return k==='×'&&mode==='unlock'?'<span></span>':'<button data-k="'+k+'" aria-label="'+(k==='⌫'?'মুছুন':k==='×'?'বাতিল':k)+'">'+(k==='×'?'বাতিল':bn(k))+'</button>'}).join('')+'</div></div>';
+  $('#app').appendChild(o);
+  var first=null;
+  function dots(){$$('#pd i',o).forEach(function(d,i){d.classList.toggle('on',i<v.length)})}
+  o.addEventListener('click',function(e){var b=e.target.closest('[data-k]');if(!b)return;var k=b.dataset.k;
+    if(k==='⌫'){v=v.slice(0,-1);dots();return}
+    if(k==='×'){o.remove();done(null);return}
+    if(v.length>=4)return;v+=k;dots();
+    if(v.length<4)return;
+    sha(v).then(function(h){
+      if(mode==='unlock'){if(h===db.settings.pin){S.unlocked=true;o.remove();done(true)}else{v='';dots();$('#pt',o).textContent='ভুল পিন, আবার চেষ্টা করুন'}}
+      else if(mode==='set'){first=h;v='';dots();mode='confirm';$('#pt',o).textContent='আবার পিন দিন'}
+      else{if(h===first){o.remove();done(h)}else{v='';first=null;mode='set';dots();$('#pt',o).textContent='মিলেনি। নতুন পিন দিন'}}
+    });
+  });
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',function(e){
+  var t=e.target,b;
+  if((b=t.closest('[data-tab]'))){S.tab=b.dataset.tab;renderChrome();renderMain();$('#main').scrollTop=0;return}
+  if((b=t.closest('[data-f]'))){S.f=b.dataset.f;renderMain();return}
+  if((b=t.closest('[data-open]'))){S.detail=b.dataset.open;S.dtab=0;renderDetail();return}
+  if(t.closest('[data-close]')){S.detail=null;renderDetail();renderMain();renderChrome();return}
+  if(t.closest('#fab')){openForm();return}
+  if((b=t.closest('[data-edit]'))){openForm(b.dataset.edit);return}
+  if(t.closest('[data-closeform]')){$('#formSheet').remove();return}
+  if((b=t.closest('[data-dtab]'))){S.dtab=+b.dataset.dtab;renderDetail();return}
+  if((b=t.closest('[data-del]'))){
+    if(b.dataset.arm){var id=b.dataset.del;db.patients=db.patients.filter(function(p){return p.id!==id});save();S.detail=null;renderDetail();renderMain();renderChrome();toast('রোগী মুছে ফেলা হয়েছে');return}
+    b.dataset.arm='1';b.style.background='var(--danger-bg)';toast('আবার চাপ দিলে মুছে যাবে');setTimeout(function(){if(b){delete b.dataset.arm;b.style.background=''}},3000);return}
+  var p=S.detail&&P(S.detail);
+  if(p){
+    if(t.closest('[data-addlog]')){var n=$('#lognote').value.trim();if(!n)return;p.log.push({date:today(),note:n});save();renderDetail();return}
+    if((b=t.closest('[data-dellog]'))){p.log.splice(+b.dataset.dellog,1);save();renderDetail();return}
+    if((b=t.closest('[data-delph]'))){p.photos.splice(+b.dataset.delph,1);save();renderDetail();return}
+    if(t.closest('[data-addmed]')){var n=$('#mn').value.trim();if(!n){toast('ওষুধের নাম লিখুন');return}p.meds.push({n:n,d:$('#md').value.trim()||'—',days:+$('#mdays').value||1});save();renderDetail();return}
+    if((b=t.closest('[data-delmed]'))){p.meds.splice(+b.dataset.delmed,1);save();renderDetail();return}
+    if(t.closest('[data-addap]')){var d=$('#ad').value;if(!d){toast('তারিখ দিন');return}p.appts.push({date:d,time:$('#at').value,type:$('#aty').value,st:'পেন্ডিং'});save();renderDetail();renderChrome();return}
+    if((b=t.closest('[data-doneap]'))){p.appts[+b.dataset.doneap].st='সম্পন্ন';save();renderDetail();renderChrome();return}
+    if((b=t.closest('[data-delap]'))){p.appts.splice(+b.dataset.delap,1);save();renderDetail();renderChrome();return}
+  }
+  if((b=t.closest('[data-ec]'))){encC=b.dataset.ec;renderMain();return}
+  if((b=t.closest('[data-enc]'))){var i=b.dataset.enc;S.openEnc[i]=!S.openEnc[i];b.parentNode.classList.toggle('open',!!S.openEnc[i]);return}
+  if(t.closest('#eyeBtn')){db.settings.shield=!db.settings.shield;save();renderChrome();if(S.tab==='set')renderMain();return}
+  if(t.closest('#bellBtn')){showAlerts();return}
+  if((b=t.closest('[data-tg]'))){
+    if(b.dataset.tg==='shield'){db.settings.shield=!db.settings.shield;save();renderChrome();renderMain();}
+    else if(db.settings.pin){db.settings.pin=null;save();renderMain();toast('পিন লক বন্ধ করা হয়েছে')}
+    else showPin('set',function(h){if(h){db.settings.pin=h;S.unlocked=true;save();renderMain();toast('পিন লক চালু হয়েছে')}});
+    return}
+  if(t.closest('[data-savesurgeon]')){db.settings.surgeon=$('#sn').value.trim();db.settings.degree=$('#sd').value.trim();save();toast('সংরক্ষিত হয়েছে');return}
+  if(t.closest('[data-backup]')){var pw=$('#bp').value;if(pw.length<4){toast('কমপক্ষে ৪ অক্ষরের পাসওয়ার্ড দিন');return}
+    encryptData(pw,JSON.stringify(db)).then(function(c){var o=$('#bout');o.hidden=false;o.value=c;$('#bcopy').hidden=false;o.select();toast('ব্যাকআপ কোড তৈরি হয়েছে। কপি করে নিরাপদ জায়গায় রাখুন')}).catch(function(){toast('ব্যাকআপ তৈরি করা যায়নি')});return}
+  if(t.closest('[data-copy]')){var o=$('#bout');o.select();var ok=function(){toast('কপি হয়েছে')};try{navigator.clipboard.writeText(o.value).then(ok,function(){document.execCommand('copy')&&ok()})}catch(x){try{document.execCommand('copy')&&ok()}catch(y){}}return}
+  if(t.closest('[data-restore]')){var code=$('#rin').value,pw2=$('#rp').value;if(!code||!pw2){toast('কোড ও পাসওয়ার্ড দিন');return}
+    decryptData(pw2,code).then(function(txt){var d=JSON.parse(txt);if(!d.patients)throw 0;db=d;save();S.detail=null;renderDetail();renderChrome();renderMain();toast('রিস্টোর সম্পন্ন: '+bn(db.patients.length)+' জন রোগী')}).catch(function(){toast('কোড বা পাসওয়ার্ড ভুল')});return}
+  if((b=t.closest('[data-reset]'))){
+    if(b.dataset.arm){var keep=db.settings;db=sample();db.settings=keep;save();renderChrome();renderMain();toast('নমুনা ডেটা লোড হয়েছে');return}
+    b.dataset.arm='1';b.textContent='নিশ্চিত? আবার চাপুন';setTimeout(function(){b.textContent='নমুনা ডেটায় রিসেট করুন';delete b.dataset.arm},3000);return}
+  if(t.closest('[data-alclose]')){var a=$('#alsheet');if(a)a.remove();return}
+  if((b=t.closest('[data-alopen]'))){var a=$('#alsheet');if(a)a.remove();S.detail=b.dataset.alopen;S.dtab=3;renderDetail();return}
+});
+document.addEventListener('input',function(e){
+  if(e.target.id==='q'){S.q=e.target.value;renderList()}
+  if(e.target.id==='eq'){encQ=e.target.value;renderEncList()}
+});
+document.addEventListener('change',function(e){
+  if(e.target.id==='photo'&&e.target.files[0]){
+    var p=P(S.detail),f=e.target.files[0],img=new Image(),rd=new FileReader();
+    rd.onload=function(){img.onload=function(){var s=Math.min(1,640/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=img.width*s;c.height=img.height*s;c.getContext('2d').drawImage(img,0,0,c.width,c.height);p.photos.push(c.toDataURL('image/jpeg',.7));save();renderDetail()};img.src=rd.result};rd.readAsDataURL(f)}
+});
+document.addEventListener('submit',function(e){
+  if(e.target.id!=='pform')return;e.preventDefault();
+  var fd=new FormData(e.target),id=e.target.dataset.id,p=id?P(id):{id:uid(),reg:nextReg(),meds:[],appts:[],log:[],photos:[]};
+  FIELDS.forEach(function(f){var v=fd.get(f[0]);v=v==null?'':String(v).trim();p[f[0]]=f[0]==='age'?(+v||0):v});
+  if(!id){db.patients.push(p);if(p.surgeryDate)p.appts.push({date:p.surgeryDate,time:'09:00',type:p.status==='planned'?'প্রি-অপারেটিভ':'পোস্ট-অপারেটিভ',st:'পেন্ডিং'})}
+  save();$('#formSheet').remove();renderDetail();renderMain();renderChrome();toast(id?'তথ্য হালনাগাদ হয়েছে':'নতুন রোগী নিবন্ধিত হয়েছে')
+});
+function showAlerts(){
+  var a=alerts(),o=document.createElement('div');o.id='alsheet';o.className='overlay';o.style.zIndex=40;
+  o.innerHTML='<div class="top"><button class="ib" data-alclose aria-label="বন্ধ">'+ic('x')+'</button><h1>নোটিফিকেশন</h1></div><div class="sheetbody">'+(a.length?a.map(function(x){var r=rel(x.a.date);return '<button class="card pc" data-alopen="'+x.p.id+'"><div class="name blur">'+esc(x.p.name)+'</div><div class="sub">'+esc(x.a.type)+' • '+fmt(x.a.date)+' • '+fmtTime(x.a.time)+'</div><div class="due '+(r.late?'late':'')+'" style="margin-top:4px">'+r.t+'</div></button>'}).join(''):'<div class="empty">আগামী ৩ দিনে বা অতিক্রান্ত কোনো অ্যাপয়েন্টমেন্ট নেই।</div>')+'</div>';
+  $('#app').appendChild(o);
+}
+
+/* ---------- boot ---------- */
+function boot(){renderChrome();renderMain()}
+if(db.settings.pin&&!S.unlocked){boot();showPin('unlock',function(){})}else boot();
+})();
+</script>
+<script>if("serviceWorker" in navigator&&location.protocol.indexOf("http")===0){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body></html>
